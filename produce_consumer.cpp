@@ -21,14 +21,14 @@ queue<int> queue_buffer;
 class Producer
 {
     int item;
-
+    
   public:
-    Producer() : item(0)
+    Producer() : item(0) {}
     {
     }
 
     void thread_run(int thread_id)
-    {
+    { 
         cout << "Producer thread run" << endl;
 
         // wait if buffer is full.
