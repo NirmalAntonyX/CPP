@@ -66,7 +66,10 @@ public:
     }
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ce53a20caa12a76160fdabcf3d2790243016ae36
 void ifs::attach(ifstate *observer)
 {
     observer_list.push_back(observer);
@@ -91,12 +94,15 @@ void ifs::notify(string str)
     }
 }
 
+<<<<<<< HEAD
    void ifstate::update(string str)
     {
         cout << "IFSTATE\t";
         cout << str << endl;
     }
 
+=======
+>>>>>>> ce53a20caa12a76160fdabcf3d2790243016ae36
 int main(void)
 {
     ifs *iflState = new ifls();
