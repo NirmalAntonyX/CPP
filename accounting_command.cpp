@@ -18,7 +18,6 @@ public:
 class RadiusAccountingCmd : public accountingCmd
 {
 private:
-    // Radius *radius;
     shared_ptr<Radius> radius;
 
 public:
