@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <typeinfo>
+#include <memory>
 
 using namespace std;
 class ifstate;
@@ -12,19 +13,19 @@ private:
     vector<ifstate *> observer_list;
 
 public:
-    virtual void attach(ifstate *);
-    virtual void detach(ifstate *);
-    virtual void notify(string str);
+    void attach(ifstate *);
+    void detach(ifstate *);
+    void notify(string str);
 };
 
 class ifstate //observer class
 {
 private:
-    ifs *_ifl_state;
-    ifs *_iff_state;
+    shared_ptr<ifs> _ifl_state;
+    shared_ptr<ifs> _iff_state;
 
 public:
-    ifstate(ifs *ifls, ifs *iffs) : _ifl_state(ifls), _iff_state(iffs)
+    ifstate(shared_ptr<ifs> ifls, shared_ptr<ifs> iffs) : _ifl_state(ifls), _iff_state(iffs)
     {
         _ifl_state->attach(this);
         _iff_state->attach(this);
@@ -45,7 +46,7 @@ class smgd : public ifstate // observer concrete1
 {
 
 public:
-    smgd(ifs *ifls, ifs *iffs) : ifstate(ifls, iffs) {}
+    smgd(shared_ptr<ifs> ifls, shared_ptr<ifs> iffs) : ifstate(ifls, iffs) {}
 
     void update(string str)
     {
@@ -57,7 +58,7 @@ public:
 class jpppd : public ifstate // observer concrete2
 {
 public:
-    jpppd(ifs *ifls, ifs *iffs) : ifstate(ifls, iffs) {}
+    jpppd(shared_ptr<ifs> ifls, shared_ptr<ifs> iffs) : ifstate(ifls, iffs) {}
 
     void update(string str)
     {
@@ -99,8 +100,8 @@ void ifs::notify(string str)
 
 int main(void)
 {
-    ifs *iflState = new ifls();
-    ifs *iffState = new iffs();
+    shared_ptr<ifs> iflState(new ifls());
+    shared_ptr<ifs> iffState(new iffs());
 
     smgd smg(iflState, iffState);
     jpppd pppoed(iflState, iffState);
